@@ -1,15 +1,40 @@
 ﻿@inherits BlazorLayoutComponent
+@inject IUriHelper UriHelper
+@inject TokenService tokenService
+@inject AuthStore authStore
 
-<div class="sidebar">
-    <NavMenu />
-</div>
+@if (authStore.IsAuth)
+{
+    <div class="sidebar">
+        <NavMenu />
+    </div>
+}
 
 <div class="main">
-    <div class="top-row px-4">
-        <a href="http://blazor.net" target="_blank" class="ml-md-auto">About</a>
-    </div>
+    @if (authStore.IsAuth)
+    {
+        <div class="top-row px-4">
+            <NavLink class="ml-md-auto" href="logout"><span class="oi oi-account-logout"></span> Logout</NavLink>
+        </div>
+    }
+    else
+    {
+        <div class="top-row px-4">
+            <NavLink class="ml-md-auto" href="registration"><span class="oi oi-people"></span> Registration</NavLink>
+        </div>
+    }
 
     <div class="content px-4">
         @Body
     </div>
 </div>
+
+
+@functions{
+    protected override async Task OnInitAsync()
+    {
+        var token = await tokenService.GetAccessToken();
+        if (string.IsNullOrWhiteSpace(token))
+            UriHelper.NavigateTo("/login");
+    }
+}

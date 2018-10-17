@@ -3,7 +3,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:20183/",
+      "applicationUrl": "http://localhost:9000/;https://localhost:9001/",
       "sslPort": 0
     }
   },
@@ -16,7 +16,12 @@
       }
     },
     "BlazorSpa.Server": {
-      "commandName": "Project"
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "http://localhost:9000/;https://localhost:9001/"
     }
   }
 }

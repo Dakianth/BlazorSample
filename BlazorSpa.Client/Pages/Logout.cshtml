@@ -1,0 +1,16 @@
+﻿@page "/logout"
+@inject IUriHelper UriHelper
+@inject TokenService tokenService
+@inject AuthStore authStore
+
+<p>Logout...</p>
+
+@functions{
+    protected override async Task OnInitAsync()
+    {
+        await tokenService.SaveAccessToken(null);
+
+        authStore.IsAuth = false;
+        UriHelper.NavigateTo("/login");
+    }
+}
