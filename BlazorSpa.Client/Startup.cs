@@ -9,7 +9,6 @@ namespace BlazorSpa.Client
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<TokenService>();
             services.AddSingleton<IDataAccess, DataAccess>();
             services.AddSingleton<AuthStore>();
         }

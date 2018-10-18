@@ -6,13 +6,13 @@ using Microsoft.JSInterop;
 
 namespace BlazorSpa.Client.Services
 {
-    public class TokenService
+    public static class JSHelper
     {
-        public Task SaveAccessToken(string accessToken)
+        public static Task SaveAccessToken(string accessToken)
         {
             return JSRuntime.Current.InvokeAsync<object>("wasmHelper.saveAccessToken", accessToken);
         }
-        public Task<string> GetAccessToken()
+        public static Task<string> GetAccessToken()
         {
             return JSRuntime.Current.InvokeAsync<string>("wasmHelper.getAccessToken");
         }

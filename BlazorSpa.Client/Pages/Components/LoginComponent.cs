@@ -17,9 +17,6 @@ namespace BlazorSpa.Client.Pages.Components
         protected IUriHelper UriHelper { get; set; }
 
         [Inject]
-        protected TokenService TokenService { get; set; }
-
-        [Inject]
         protected HttpClient Http { get; set; }
 
         [Inject]
@@ -38,7 +35,7 @@ namespace BlazorSpa.Client.Pages.Components
             };
 
             var response = await Http.PostJsonAsync<TokenResponse>("api/Token/Login", vm);
-            await TokenService.SaveAccessToken(response.Token);
+            await JSHelper.SaveAccessToken(response.Token);
 
             AuthStore.IsAuth = true;
             UriHelper.NavigateTo("/");

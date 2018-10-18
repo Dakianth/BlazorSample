@@ -14,14 +14,11 @@ namespace BlazorSpa.Client.Pages.Components
         protected IUriHelper UriHelper { get; set; }
 
         [Inject]
-        protected TokenService TokenService { get; set; }
-
-        [Inject]
         protected AuthStore AuthStore { get; set; }
 
         protected override async Task OnInitAsync()
         {
-            await TokenService.SaveAccessToken(null);
+            await JSHelper.SaveAccessToken(null);
 
             AuthStore.IsAuth = false;
             UriHelper.NavigateTo("/login");

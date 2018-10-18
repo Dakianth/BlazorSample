@@ -1,6 +1,5 @@
 ﻿@inherits BlazorLayoutComponent
 @inject IUriHelper UriHelper
-@inject TokenService tokenService
 @inject AuthStore authStore
 
 @if (authStore.IsAuth)
@@ -24,17 +23,23 @@
         </div>
     }
 
-    <div class="content px-4">
-        @Body
-    </div>
+        <Provide Value="theme">
+            <div class="content px-4">
+                @Body
+            </div>
+        </Provide>
 </div>
 
 
 @functions{
+    ThemeInfo theme = new ThemeInfo { ButtonClass = "btn-success" };
+
     protected override async Task OnInitAsync()
     {
-        var token = await tokenService.GetAccessToken();
+        var token = await JSHelper.GetAccessToken();
         if (string.IsNullOrWhiteSpace(token))
             UriHelper.NavigateTo("/login");
+        else
+            authStore.IsAuth = true;
     }
 }

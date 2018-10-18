@@ -8,17 +8,15 @@ namespace BlazorSpa.Client.Services
     public class DataAccess : IDataAccess
     {
         private readonly HttpClient httpClient;
-        private readonly TokenService tokenService;
 
-        public DataAccess(HttpClient httpClient, TokenService tokenService)
+        public DataAccess(HttpClient httpClient)
         {
             this.httpClient = httpClient;
-            this.tokenService = tokenService;
         }
 
         private async Task SetToken()
         {
-            var token = await tokenService.GetAccessToken();
+            var token = await JSHelper.GetAccessToken();
             httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {token} ");
         }
 
