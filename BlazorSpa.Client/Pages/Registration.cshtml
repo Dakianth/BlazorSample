@@ -1,6 +1,5 @@
 ﻿@page "/registration"
-@inject IUriHelper UriHelper
-@inject HttpClient Http
+@inherits RegistrationComponent
 
 <div class="container">
     <h1>Register for JWT Authentication!</h1>
@@ -15,21 +14,3 @@
 
     <button onclick="@SubmitFrom">Submit</button>
 </div>
-
-@functions{
-    public string Email { get; set; } = "";
-    public string Password { get; set; } = "";
-
-    async Task SubmitFrom()
-    {
-        var vm = new TokenViewModel
-        {
-            Email = Email,
-            Password = Password
-        };
-
-        var response = await Http.PostJsonAsync<object>("api/Token/Registration", vm);
-
-        UriHelper.NavigateTo("/login");
-    }
-}

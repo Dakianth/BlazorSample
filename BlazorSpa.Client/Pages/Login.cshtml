@@ -1,8 +1,5 @@
 ﻿@page "/login"
-@inject IUriHelper UriHelper
-@inject TokenService tokenService
-@inject HttpClient Http
-@inject AuthStore authStore
+@inherits LoginComponent
 
 <div class="container">
     <h1>Log in to JWT Authentication!</h1>
@@ -17,24 +14,3 @@
 
     <button onclick="@SubmitFrom">Submit</button>
 </div>
-
-@functions{
-    public string Email { get; set; } = "";
-    public string Password { get; set; } = "";
-    public string Token { get; set; } = "";
-
-    async Task SubmitFrom()
-    {
-        var vm = new TokenViewModel
-        {
-            Email = Email,
-            Password = Password
-        };
-
-        var response = await Http.PostJsonAsync<TokenResponse>("api/Token/Login", vm);
-        await tokenService.SaveAccessToken(response.Token);
-
-        authStore.IsAuth = true;
-        UriHelper.NavigateTo("/");
-    }
-}

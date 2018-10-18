@@ -1,15 +1,16 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
+using BlazorSpa.Shared;
 using Microsoft.AspNetCore.Blazor;
 
 namespace BlazorSpa.Client.Services
 {
-    public class DataPortal
+    public class DataAccess : IDataAccess
     {
         private readonly HttpClient httpClient;
         private readonly TokenService tokenService;
 
-        public DataPortal(HttpClient httpClient, TokenService tokenService)
+        public DataAccess(HttpClient httpClient, TokenService tokenService)
         {
             this.httpClient = httpClient;
             this.tokenService = tokenService;
