@@ -10,8 +10,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Blazor.Extensions.SignalR" Version="0.1.7" />
     <PackageReference Include="Microsoft.AspNetCore.Blazor.Browser" Version="0.7.0-preview1-20181015.2" />
     <PackageReference Include="Microsoft.AspNetCore.Blazor.Build" Version="0.7.0-preview1-20181015.2" PrivateAssets="all" />
+    <PackageReference Include="System.Drawing.Common" Version="4.5.1" />
+    <PackageReference Include="System.Drawing.Primitives" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup>

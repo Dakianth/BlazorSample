@@ -16,6 +16,8 @@
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Blazor.Server" Version="0.7.0-preview1-20181015.2" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" />
+    <PackageReference Include="Microsoft.Azure.SignalR" Version="1.0.1" />
+    <PackageReference Include="Microsoft.Azure.SignalR.Protocols" Version="1.0.1" />
   </ItemGroup>
 
   <ItemGroup>

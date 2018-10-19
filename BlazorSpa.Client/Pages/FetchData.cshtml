@@ -12,34 +12,47 @@
 }
 else
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Temp. (C)</th>
-                <th>Temp. (F)</th>
-                <th>Summary</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var forecast in forecasts)
-            {
-                <tr>
-                    <td>@forecast.Date.ToShortDateString()</td>
-                    <td>@forecast.TemperatureC</td>
-                    <td>@forecast.TemperatureF</td>
-                    <td>@forecast.Summary</td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="">Search:</span>
+        </div>
+        <input type="text" class="form-control" placeholder="Filter" aria-label="Filter" aria-describedby="basic-addon2" bind="@filter" />
+        <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="button" onclick="@Filter">Find</button>
+        </div>
+    </div>
+
+    <TemplatedTable Items="items" TItem="WeatherForecast">
+        <TableHeader>
+            <th>Date</th>
+            <th>Temp. (C)</th>
+            <th>Temp. (F)</th>
+            <th>Summary</th>
+        </TableHeader>
+        <RowTemplate Context="forecast">
+            <td>@forecast.Date.ToShortDateString()</td>
+            <td>@forecast.TemperatureC</td>
+            <td>@forecast.TemperatureF</td>
+            <td>@forecast.Summary</td>
+        </RowTemplate>
+    </TemplatedTable>
 }
 
 @functions {
     WeatherForecast[] forecasts;
+    IEnumerable<WeatherForecast> items;
+    string filter = "";
 
     protected override async Task OnInitAsync()
     {
         forecasts = await dataPortal.GetJsonAsync<WeatherForecast[]>("api/SampleData/WeatherForecasts");
+    }
+
+    private void Filter()
+    {
+        if (string.IsNullOrWhiteSpace(filter))
+            items = forecasts;
+        else
+            items = forecasts.Where(item => item.Summary.ToUpper().Contains(filter.ToUpper()));
     }
 }

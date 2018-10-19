@@ -3,6 +3,7 @@ using System.Net.Mime;
 using System.Text;
 using BlazorSpa.Server.Contracts;
 using BlazorSpa.Server.Data;
+using BlazorSpa.Server.Hubs;
 using BlazorSpa.Server.Service;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Blazor.Server;
@@ -67,6 +68,8 @@ namespace BlazorSpa.Server
                     WasmMediaTypeNames.Application.Wasm,
                 });
             });
+
+            services.AddSignalR(); //.AddAzureSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -86,6 +89,11 @@ namespace BlazorSpa.Server
                 routes.MapRoute(name: "default", template: "{controller}/{action}/{id?}");
             });
 
+            app.UseSignalR(route =>
+            {
+                route.MapHub<BlazorHub>(BlazorHub.DefaultPath);
+                route.MapHub<ChatHub>("/hub/chat");
+            });
             app.UseBlazor<Client.Startup>();
         }
     }
