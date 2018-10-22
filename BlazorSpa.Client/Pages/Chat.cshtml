@@ -1,42 +1,46 @@
 ﻿@page "/chat"
-
+@inherits ChatComponent
 
 <div class="container">
-    <div>
-        <ul id="discussion">
-            @foreach (var message in messages)
-            {
-                <li>@message.DisplayText</li>
-            }
-        </ul>
-    </div>
+    @if (connected)
+    {
+        <div class="card" style="height: 30rem;">
+            <div class="card-header bg-dark">
+                <span class="text-white">Chat - @name</span>
+                <button type="button" class="close" aria-label="Close">
+                    <span class="text-white" aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="card-body">
+                <ul id="discussion" class="list-unstyled">
+                    @foreach (var message in messages)
+                    {
+                        <MessageTemplate Item="@message" Name="@name"></MessageTemplate>
+                    }
+                </ul>
+            </div>
+        </div>
 
-    <input type="text" id="message" class="form-control" bind="@message" />
-    <input type="button" id="sendMessage" value="Send" class="btn btn-primary" onclick="@SendMessage" />
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-sm">Message:</span>
+            </div>
+            <input type="text" id="message" class="form-control" bind="@message" />
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="button" id="sendMessage" onclick="@SendMessage">Send</button>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-sm">Name:</span>
+            </div>
+            <input type="text" class="form-control" aria-label="User name" aria-describedby="inputGroup-sizing-sm" bind="name" />
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="button" id="sendMessage" onclick="@Connect">Connect</button>
+            </div>
+        </div>
+    }
 </div>
-
-@functions{
-    HubConnection connection;
-    string message = "";
-    List<Message> messages = new List<Message>();
-
-    protected override async Task OnInitAsync()
-    {
-        connection = new HubConnectionBuilder().WithUrl("/hub/chat").Build();
-        connection.On<Message>("broadcastMessage", this.OnBroadcastMessage);
-        await connection.StartAsync();
-    }
-
-    Task OnBroadcastMessage(Message message)
-    {
-        messages.Add(message);
-        StateHasChanged();
-        return Task.CompletedTask;
-    }
-
-    async Task SendMessage()
-    {
-        await connection.InvokeAsync("Send", new Message { Sender = "Blazor Client", Text = message });
-        message = "";
-    }
-}

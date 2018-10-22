@@ -1,0 +1,18 @@
+﻿<li>
+    <p>
+        <div class="alert shadow @(itsMe ? "alert-info text-left" : "alert-success text-right")" style="margin-@(itsMe ? "right" : "left"): 10rem;" role="alert">
+            @if (itsMe)
+            {
+                <span><b>@Item.Sender</b></span><br />
+            }
+            <div class="word-wrap: break-word;width: 50rem;">@Item.Text</div>
+        </div>
+    </p>
+</li>
+
+@functions{
+    [Parameter] Message Item { get; set; }
+    [Parameter] string Name { get; set; }
+
+    bool itsMe => Item.Sender != Name;
+}
