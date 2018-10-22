@@ -1,0 +1,19 @@
+﻿<Modal Name="@Name">
+    <ModalHeader>
+        <h4 class="modal-title">@Title</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+    </ModalHeader>
+    <ModalBody>
+        <p>@Message</p>
+    </ModalBody>
+    <ModalFooter>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+    </ModalFooter>
+</Modal>
+
+@functions{
+    [Parameter] string Title { get; set; }
+    [Parameter] string Message { get; set; }
+    [Parameter] string Name { get; set; }
+    [Parameter] Func<MessageBoxButton, MessageBoxResult> Result { get; set; }
+}

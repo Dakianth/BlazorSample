@@ -29,7 +29,8 @@ namespace BlazorSpa.Client.Services
         public async Task<bool> GetAccessToken()
         {
             Token = await JSHelper.GetAccessToken();
-            return !string.IsNullOrWhiteSpace(Token);
+            IsAuth = !string.IsNullOrWhiteSpace(Token);
+            return IsAuth;
         }
     }
 }
