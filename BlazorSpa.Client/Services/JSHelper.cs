@@ -12,6 +12,7 @@ namespace BlazorSpa.Client.Services
         {
             return JSRuntime.Current.InvokeAsync<object>("wasmHelper.saveAccessToken", accessToken);
         }
+
         public static Task<string> GetAccessToken()
         {
             return JSRuntime.Current.InvokeAsync<string>("wasmHelper.getAccessToken");

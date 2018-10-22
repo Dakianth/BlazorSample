@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Channels;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using BlazorSpa.Shared.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 
 namespace BlazorSpa.Server.Hubs
 {
+    [Authorize]
     public class ChatHub : Hub
     {
         //public List<string> Connections { get; set; } = new List<string>();

@@ -11,6 +11,7 @@ namespace BlazorSpa.Client
         {
             services.AddSingleton<IDataAccess, DataAccess>();
             services.AddSingleton<AuthStore>();
+            services.AddSingleton<ChatHub>();
         }
 
         public void Configure(IBlazorApplicationBuilder app)

@@ -2,15 +2,21 @@
 @inherits RegistrationComponent
 
 <div class="container">
-    <h1>Register for JWT Authentication!</h1>
-    <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" name="email" placeholder="Email" class="form-control" bind="@Email" />
-    </div>
-    <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" name="password" placeholder="Password" class="form-control" bind="@Password" />
-    </div>
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            Registration
+        </div>
+        <div class="card-body">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" name="email" placeholder="Email" class="form-control" bind="@Email" />
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" name="password" placeholder="Password" class="form-control" bind="@Password" />
+            </div>
 
-    <button onclick="@SubmitFrom">Submit</button>
+            <button onclick="@SubmitFrom">Register</button>
+        </div>
+    </div>
 </div>

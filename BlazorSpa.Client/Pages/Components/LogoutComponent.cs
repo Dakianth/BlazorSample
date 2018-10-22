@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using BlazorSpa.Client.Services;
 using Microsoft.AspNetCore.Blazor.Components;
 using Microsoft.AspNetCore.Blazor.Services;
@@ -18,9 +15,7 @@ namespace BlazorSpa.Client.Pages.Components
 
         protected override async Task OnInitAsync()
         {
-            await JSHelper.SaveAccessToken(null);
-
-            AuthStore.IsAuth = false;
+            await AuthStore.Logout();
             UriHelper.NavigateTo("/login");
         }
     }

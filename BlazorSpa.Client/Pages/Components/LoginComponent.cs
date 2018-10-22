@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using BlazorSpa.Client.Services;
 using BlazorSpa.Shared;
+using BlazorSpa.Shared.Models;
 using Microsoft.AspNetCore.Blazor;
 using Microsoft.AspNetCore.Blazor.Components;
 using Microsoft.AspNetCore.Blazor.Services;
@@ -22,6 +24,9 @@ namespace BlazorSpa.Client.Pages.Components
         [Inject]
         protected AuthStore AuthStore { get; set; }
 
+        [Inject]
+        protected ChatHub Hub { get; set; }
+
         public string Email { get; set; } = "";
         public string Password { get; set; } = "";
         public string Token { get; set; } = "";
@@ -35,9 +40,14 @@ namespace BlazorSpa.Client.Pages.Components
             };
 
             var response = await Http.PostJsonAsync<TokenResponse>("api/Token/Login", vm);
-            await JSHelper.SaveAccessToken(response.Token);
 
-            AuthStore.IsAuth = true;
+            //Http.DefaultRequestHeaders.Add("Authorization", $"Bearer {response.Token} ");
+            Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", response.Token);
+            var user = await Http.GetJsonAsync<User>("api/Token/Info");
+
+            await AuthStore.Login(user, response.Token);
+
+            await Hub.Connect();
             UriHelper.NavigateTo("/");
         }
     }

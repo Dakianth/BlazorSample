@@ -22,7 +22,7 @@ else
         </div>
     </div>
 
-    <TemplatedTable Items="items" TItem="WeatherForecast">
+    <TableTemplate Items="items" TItem="WeatherForecast">
         <TableHeader>
             <th>Date</th>
             <th>Temp. (C)</th>
@@ -35,7 +35,7 @@ else
             <td>@forecast.TemperatureF</td>
             <td>@forecast.Summary</td>
         </RowTemplate>
-    </TemplatedTable>
+    </TableTemplate>
 }
 
 @functions {

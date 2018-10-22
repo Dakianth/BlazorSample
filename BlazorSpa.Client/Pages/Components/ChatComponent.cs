@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Threading.Tasks;
 using Blazor.Extensions;
+using BlazorSpa.Client.Services;
 using BlazorSpa.Shared.Models;
 using Microsoft.AspNetCore.Blazor.Components;
 
@@ -10,38 +12,24 @@ namespace BlazorSpa.Client.Pages.Components
 {
     public class ChatComponent : BlazorComponent
     {
-        protected HubConnection connection;
+        [Inject]
+        public ChatHub Hub { get; set; }
         protected string message = "";
-        protected List<Message> messages = new List<Message>();
-        protected bool connected;
-        protected string name = "";
 
-        protected async Task Connect()
+        protected override void OnInit()
         {
-            connection = new HubConnectionBuilder().WithUrl("/hub/chat").Build();
-            connection.On<Message>("broadcastMessage", this.OnBroadcastMessage);
-            await connection.StartAsync();
-
-            connected = true;
+            Hub.Messages.CollectionChanged -= OnMessageReceived;
+            Hub.Messages.CollectionChanged += OnMessageReceived;
         }
 
-        protected async Task Disconnect()
+        private void OnMessageReceived(object sender, NotifyCollectionChangedEventArgs e)
         {
-            await connection.StopAsync();
-            name = "";
-            connected = false;
-        }
-
-        protected Task OnBroadcastMessage(Message message)
-        {
-            messages.Add(message);
             StateHasChanged();
-            return Task.CompletedTask;
         }
 
         protected async Task SendMessage()
         {
-            await connection.InvokeAsync("Send", new Message { Sender = name, Text = message });
+            await Hub.Connection.InvokeAsync("Send", new Message { Sender = Hub.Name, Text = message });
             message = "";
         }
     }

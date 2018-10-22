@@ -1,6 +1,7 @@
 using System.Linq;
 using System.Net.Mime;
 using System.Text;
+using System.Threading.Tasks;
 using BlazorSpa.Server.Contracts;
 using BlazorSpa.Server.Data;
 using BlazorSpa.Server.Hubs;
@@ -57,6 +58,19 @@ namespace BlazorSpa.Server
                         ValidIssuer = Configuration["Jwt:Issuer"],
                         ValidAudience = Configuration["Jwt:Audience"],
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+                    };
+
+                    options.Events = new JwtBearerEvents
+                    {
+                        OnMessageReceived = context =>
+                        {
+                            var accessToken = context.Request.Query["access_token"];
+
+                            if (!string.IsNullOrEmpty(accessToken))
+                                context.Token = context.Request.Query["access_token"];
+
+                            return Task.CompletedTask;
+                        }
                     };
                 });
 

@@ -1,6 +1,9 @@
 ﻿using System.Threading.Tasks;
 using BlazorSpa.Server.Contracts;
+using BlazorSpa.Server.Extensions;
 using BlazorSpa.Shared;
+using BlazorSpa.Shared.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -57,6 +60,17 @@ namespace BlazorSpa.Server.Controllers
                 return StatusCode(500);
 
             return Ok();
+        }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<ActionResult> Info()
+        {
+            var user = await userManager.GetJwtUserAsync(HttpContext.User);
+            if (user == null)
+                return BadRequest();
+
+            return Ok(new User { Name = user.UserName, Email = user.Email });
         }
     }
 }

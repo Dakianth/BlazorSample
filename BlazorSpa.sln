@@ -3,11 +3,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28124.53
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorSpa.Server", "BlazorSpa.Server\BlazorSpa.Server.csproj", "{40CCEFB7-9022-463A-8E6C-36F8C1EE8001}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorSpa.Server", "BlazorSpa.Server\BlazorSpa.Server.csproj", "{40CCEFB7-9022-463A-8E6C-36F8C1EE8001}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorSpa.Client", "BlazorSpa.Client\BlazorSpa.Client.csproj", "{9BEA95E8-27AF-4163-A082-DED149F1C51D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorSpa.Client", "BlazorSpa.Client\BlazorSpa.Client.csproj", "{9BEA95E8-27AF-4163-A082-DED149F1C51D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorSpa.Shared", "BlazorSpa.Shared\BlazorSpa.Shared.csproj", "{32DCDDBC-6D3A-4588-98F7-96D9178D8D16}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorSpa.Shared", "BlazorSpa.Shared\BlazorSpa.Shared.csproj", "{32DCDDBC-6D3A-4588-98F7-96D9178D8D16}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3FE4D94B-72BF-460E-B85F-D36AE4CBBE51}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

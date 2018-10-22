@@ -1,18 +1,18 @@
-﻿@inherits BlazorLayoutComponent
-@inject IUriHelper UriHelper
-@inject AuthStore authStore
+﻿@using BlazorSpa.Client.Shared.Components
+@inherits MainLayoutComponent
 
-@if (authStore.IsAuth)
+@if (AuthStore.IsAuth)
 {
     <div class="sidebar">
         <NavMenu />
     </div>
 }
 
-<div class="main bg-dark">
-    @if (authStore.IsAuth)
+<div class="main">
+    @if (AuthStore.IsAuth)
     {
         <div class="top-row px-4">
+            <NavLink class="ml-md-auto" href="chat"><span class="oi oi-bell"></span> <span class="badge badge-light">@Hub.UnreadMessages</span></NavLink>
             <NavLink class="ml-md-auto" href="logout"><span class="oi oi-account-logout"></span> Logout</NavLink>
         </div>
     }
@@ -23,23 +23,9 @@
         </div>
     }
 
-        <Provide Value="theme">
-            <div class="content px-4 ">
-                @Body
-            </div>
-        </Provide>
+    <Provide Value="theme">
+        <div class="content px-4 ">
+            @Body
+        </div>
+    </Provide>
 </div>
-
-
-@functions{
-    ThemeInfo theme = new ThemeInfo { ButtonClass = "btn-success" };
-
-    protected override async Task OnInitAsync()
-    {
-        var token = await JSHelper.GetAccessToken();
-        if (string.IsNullOrWhiteSpace(token))
-            UriHelper.NavigateTo("/login");
-        else
-            authStore.IsAuth = true;
-    }
-}
