@@ -1,6 +1,6 @@
 ﻿<!-- The Modal -->
 <div class="modal" id="@Name">
-    <div class="modal-dialog">
+    <div class="modal-dialog @Settings">
         <div class="modal-content">
 
             <!-- Modal Header -->
@@ -39,6 +39,7 @@
 
 @functions{
     [Parameter] string Name { get; set; }
+    [Parameter] string Settings { get; set; } = "";
 
     [Parameter] RenderFragment ModalHeader { get; set; }
     [Parameter] RenderFragment ModalBody { get; set; }

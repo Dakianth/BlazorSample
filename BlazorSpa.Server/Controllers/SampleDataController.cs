@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BlazorSpa.Server.Controllers
 {
     [Authorize]
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     public class SampleDataController : Controller
     {
         private static string[] Summaries = new[]
@@ -16,7 +16,7 @@ namespace BlazorSpa.Server.Controllers
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
-        [HttpGet("[action]")]
+        [HttpGet]
         public IEnumerable<WeatherForecast> WeatherForecasts()
         {
             var rng = new Random();

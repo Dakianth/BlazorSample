@@ -22,7 +22,7 @@ else
         </div>
     </div>
 
-    <TableTemplate Items="items" TItem="WeatherForecast">
+    <TableTemplate Items="items" >
         <TableHeader>
             <th>Date</th>
             <th>Temp. (C)</th>
@@ -39,13 +39,14 @@ else
 }
 
 @functions {
-    WeatherForecast[] forecasts;
+    IEnumerable<WeatherForecast> forecasts;
     IEnumerable<WeatherForecast> items;
     string filter = "";
 
     protected override async Task OnInitAsync()
     {
-        forecasts = await dataPortal.GetJsonAsync<WeatherForecast[]>("api/SampleData/WeatherForecasts");
+        forecasts = await dataPortal.GetJsonAsync<IEnumerable<WeatherForecast>>("api/SampleData/WeatherForecasts");
+        Filter();
     }
 
     private void Filter()
