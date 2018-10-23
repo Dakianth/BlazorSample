@@ -21,3 +21,25 @@ Welcome to your new app.
     </ModalBody>
 </Modal>
 
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#msg">
+    Open MessageBox
+</button>
+
+<div>@msgResult</div>
+
+<MessageBox Name="msg" Title="MessageBox" Buttons="@MessageBoxButton.YesNoCancel" Result="@Result">
+    <Message>
+        MessageBox Sample
+    </Message>
+</MessageBox>
+
+@functions{
+    string msgResult = "...";
+
+    void Result(MessageBoxResult result)
+    {
+        msgResult = $"MessageBox {result}";
+        StateHasChanged();
+    }
+}
+

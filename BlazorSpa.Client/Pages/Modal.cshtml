@@ -38,8 +38,9 @@
 </div>
 
 @functions{
+    [Parameter] string Name { get; set; }
+
     [Parameter] RenderFragment ModalHeader { get; set; }
     [Parameter] RenderFragment ModalBody { get; set; }
     [Parameter] RenderFragment ModalFooter { get; set; }
-    [Parameter] string Name { get; set; }
 }
