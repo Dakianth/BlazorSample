@@ -11,15 +11,15 @@
 <div class="main">
     @if (AuthStore.IsAuth)
     {
-        <div class="top-row px-4">
-            <NavLink class="ml-md-auto" href="chat"><span class="oi oi-bell"></span> <span class="badge badge-light">@Hub.UnreadMessages</span></NavLink>
-            <NavLink class="ml-md-auto" href="logout"><span class="oi oi-account-logout"></span> Logout</NavLink>
+        <div class="d-flex  justify-content-end">
+            <NavLink class="p-2 btn" href="chat"><span class="oi oi-bell"></span> <span class="badge badge-light">@Hub.UnreadMessages</span></NavLink>
+            <NavLink class="p-2 btn" href="logout"><span class="oi oi-account-logout"></span> Logout</NavLink>
         </div>
     }
     else
     {
-        <div class="top-row px-4">
-            <NavLink class="ml-md-auto" href="registration"><span class="oi oi-people"></span> Registration</NavLink>
+        <div class="d-flex  justify-content-end">
+            <NavLink class="p-2 btn" href="registration"><span class="oi oi-people"></span> Registration</NavLink>
         </div>
     }
 
