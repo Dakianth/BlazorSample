@@ -12,6 +12,7 @@
     @if (AuthStore.IsAuth)
     {
         <div class="d-flex  justify-content-end">
+            <div class="p-2 btn">@AuthStore.CurrentUser.Name</div>
             <NavLink class="p-2 btn" href="chat"><span class="oi oi-bell"></span> <span class="badge badge-light">@Hub.UnreadMessages</span></NavLink>
             <NavLink class="p-2 btn" href="logout"><span class="oi oi-account-logout"></span> Logout</NavLink>
         </div>

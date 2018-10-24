@@ -41,11 +41,7 @@ namespace BlazorSpa.Client.Pages.Components
 
             var response = await Http.PostJsonAsync<TokenResponse>("api/Token/Login", vm);
 
-            //Http.DefaultRequestHeaders.Add("Authorization", $"Bearer {response.Token} ");
-            Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", response.Token);
-            var user = await Http.GetJsonAsync<User>("api/Token/Info");
-
-            await AuthStore.Login(user, response.Token);
+            await AuthStore.Login(response.Token);
 
             await Hub.Connect();
             UriHelper.NavigateTo("/");
